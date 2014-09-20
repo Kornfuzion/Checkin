@@ -21,8 +21,9 @@ public class Place {
 	private int place_id;
 	private double radius;
 	private Vector<User> currentUsers;
+	private int numFriends;
 	
-	private static String[] tableSchemaMapOrder = {PLACE_ID,NAME,LONG,LAT,RADIUS};
+	private static String[] tableSchemaMapOrder = {NAME,LONG,LAT,RADIUS,PLACE_ID};
 	
 	public static Place createPlace(String[] columns){
 		Place tmp = new Place();
@@ -105,6 +106,14 @@ public class Place {
 
 	public void setCurrentUsers(Vector<User> currentUsers) {
 		this.currentUsers = currentUsers;
+	}
+
+	public int getNumFriends() {
+		return numFriends;
+	}
+
+	public void setNumFriends(int numFriends) {
+		this.numFriends = numFriends;
 	}
 
 }

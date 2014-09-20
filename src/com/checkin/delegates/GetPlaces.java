@@ -7,14 +7,15 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Vector;
 
-import com.checkin.utils.Place;
-import com.checkin.utils.SharedObjects;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.ListView;
+
+import com.checkin.utils.Place;
+import com.checkin.utils.SharedObjects;
+import com.checkin.adapters.PlaceAdapter;
 
 public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 	LocalBroadcastManager mLocalBroadcastManager;
@@ -40,7 +41,7 @@ public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 		   String data  = URLEncoder.encode("phone_number", "UTF-8") 	 
                     + "=" + URLEncoder.encode(phone_number, "UTF-8");
 		   //this URL determines which php code is executed at the server
-		   String link="http://ec2-54-84-102-132.compute-1.amazonaws.com/getyourplaces.php";
+		   String link = SharedObjects.DB + "getyourplaces.php";
 		   URL url = new URL(link);
 		   URLConnection conn = url.openConnection();
 		   conn.setDoOutput(true); 
@@ -77,14 +78,16 @@ public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 		   return places;
          }catch(Exception e){
         	 Log.e(SharedObjects.TAG, e.toString());
-        	 return null;
+        	 return new Vector<Place>();
          }
    }
    
    @Override
    protected void onPostExecute(Vector<Place> list){
 	   super.onPostExecute(list); 
-	   //TODO 
+	   PlaceAdapter pa = new PlaceAdapter(this.context, list);
+	   lv.setAdapter(pa);
+	   SharedObjects.places = list;
    }
   
    
