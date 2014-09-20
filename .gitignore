@@ -26,5 +26,5 @@ proguard/
 *.log
 
 #eclipse generated files
-project.properties
+*project.properties
 .settings/
