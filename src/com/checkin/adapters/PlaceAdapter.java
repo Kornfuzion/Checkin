@@ -1,6 +1,5 @@
 package com.checkin.adapters;
 
-import java.util.ArrayList;
 import java.util.Vector;
 
 import android.content.Context;
@@ -22,7 +21,6 @@ public class PlaceAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
 
     public PlaceAdapter(Context context, Vector<Place> list) {
-        // TODO Auto-generated constructor stub
         this.context = context;
         this.data = list;
         inflater = (LayoutInflater) context
@@ -31,19 +29,16 @@ public class PlaceAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
         return data.size();
     }
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
         return data.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
@@ -54,15 +49,18 @@ public class PlaceAdapter extends BaseAdapter {
     	//this part is useful
         View vi = convertView;
         if (vi == null){
-        	//TODO replace with Ernest's xml file for each row
         	vi = inflater.inflate(R.layout.place_custom_row, null);
         }
         
         TextView placeName = (TextView) vi.findViewById(R.id.place_name);
         placeName.setText(p.getName());
         
+        TextView numFriends = (TextView) vi.findViewById(R.id.place_friends);
+        numFriends.setText(p.getNumFriends() + "");
+        
+        TextView placeId = (TextView) vi.findViewById(R.id.place_id_field);
+        placeId.setText(p.getPlace_id() + "");
             
-        //TODO map data
         return vi;
     }
 }
