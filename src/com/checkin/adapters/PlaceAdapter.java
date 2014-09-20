@@ -9,21 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.checkin.utils.Place;
 import com.checkin.utils.SharedObjects;
 import com.example.checkin.R;
 
-class PlaceAdapter extends BaseAdapter {
+public class PlaceAdapter extends BaseAdapter {
 
     Context context;
     Vector<Place> data;
     private static LayoutInflater inflater = null;
 
-    public PlaceAdapter(Context context, ArrayList<String> empty) {
+    public PlaceAdapter(Context context, Vector<Place> list) {
         // TODO Auto-generated constructor stub
         this.context = context;
-        this.data = null;
+        this.data = list;
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -48,14 +49,18 @@ class PlaceAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
+        Place p = data.get(position);
     	Log.d(SharedObjects.TAG,data.get(position).toString());
     	//this part is useful
         View vi = convertView;
         if (vi == null){
         	//TODO replace with Ernest's xml file for each row
-//        	vi = inflater.inflate(R.layout.subscribed, null);
+        	vi = inflater.inflate(R.layout.place_custom_row, null);
         }
+        
+        TextView placeName = (TextView) vi.findViewById(R.id.place_name);
+        placeName.setText(p.getName());
+        
             
         //TODO map data
         return vi;

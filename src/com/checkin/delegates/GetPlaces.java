@@ -7,14 +7,15 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Vector;
 
-import com.checkin.utils.Place;
-import com.checkin.utils.SharedObjects;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.ListView;
+
+import com.checkin.utils.Place;
+import com.checkin.utils.SharedObjects;
+import com.checkin.adapters.PlaceAdapter;
 
 public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 	LocalBroadcastManager mLocalBroadcastManager;
@@ -84,7 +85,8 @@ public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
    @Override
    protected void onPostExecute(Vector<Place> list){
 	   super.onPostExecute(list); 
-	   //TODO 
+	   PlaceAdapter pa = new PlaceAdapter(this.context, list);
+	   lv.setAdapter(pa);
    }
   
    

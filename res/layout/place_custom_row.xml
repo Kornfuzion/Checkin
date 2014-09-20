@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.checkin.MainActivity"
+    tools:context="com.checkin.activities.MainActivity"
     android:orientation="vertical"
     android:gravity="center_horizontal"  >
     
@@ -15,7 +15,6 @@
        <ImageView
          android:id="@+id/place_img"
          android:layout_width="120px"
-         android:paddingLeft="10px"
          android:layout_height="match_parent"
          android:src="@drawable/gym"
     	 android:gravity="center" />
@@ -24,7 +23,6 @@
          android:id="@+id/place_name"
          android:layout_width="240px"
          android:layout_height="match_parent"
-         android:paddingLeft="20px"
     	 android:gravity="center_vertical" 
          android:textSize="40px"
          android:text="Gym" />
