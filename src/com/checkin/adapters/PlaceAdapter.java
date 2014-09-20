@@ -3,6 +3,7 @@ package com.checkin.adapters;
 import java.util.Vector;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.checkin.activities.FriendsAtPlaceActivity;
 import com.checkin.utils.Place;
 import com.checkin.utils.SharedObjects;
 import com.example.checkin.R;
@@ -60,7 +62,18 @@ public class PlaceAdapter extends BaseAdapter {
         
         TextView placeId = (TextView) vi.findViewById(R.id.place_id_field);
         placeId.setText(p.getPlace_id() + "");
-            
+        
+        vi.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+            	
+            	TextView placeId = (TextView) v.findViewById(R.id.place_id_field);
+                Log.i(SharedObjects.TAG, "Place Id: " + placeId.getText());
+                Intent intent = new Intent(context, FriendsAtPlaceActivity.class);
+                intent.putExtra(SharedObjects.PLACE_ID, placeId.getText());
+                context.startActivity(intent);
+            }
+        }); 
+        
         return vi;
     }
 }
