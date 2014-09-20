@@ -1,4 +1,4 @@
-package com.example.utils;
+package com.checkin.utils;
 
 import android.graphics.Bitmap;
 
