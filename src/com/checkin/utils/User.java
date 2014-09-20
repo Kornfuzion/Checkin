@@ -6,6 +6,7 @@ public class User {
 	private String phoneNumber;
 	private String name;
 	private String password;
+	private String aboutMe;
 	private Bitmap profilePic;
 	
 	//might be public void setProfilePic(bytearray)
@@ -39,6 +40,12 @@ public class User {
 	}
 	public void setProfilePic(Bitmap profilePic) {
 		this.profilePic = profilePic;
+	}
+	public String getAboutMe() {
+		return aboutMe;
+	}
+	public void setAboutMe(String aboutMe) {
+		this.aboutMe = aboutMe;
 	}
 	
 }

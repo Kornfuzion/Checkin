@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:background="#642D64"  >
 		
 		<ImageView
             android:id="@+id/back_arrow"
@@ -17,19 +18,18 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:src="@drawable/back_arrow"
-            android:background="#642D64" />
+            />
 		
          <TextView
-            android:id="@+id/logo"
+            android:id="@+id/title"
             android:layout_width="0dip"
             android:layout_weight="5"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:text="Friends at the" 
             android:textSize="20dp"
-            android:paddingLeft="10dp"
             android:textColor="#FFFFFF"
-            android:gravity="center_vertical"
-            android:background="#642D64"/>
+            android:gravity="center_vertical"/>
     </LinearLayout>
     
     <ListView
@@ -37,15 +37,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:divider="#F2F2F2"
-            android:paddingBottom="10px"
-            android:dividerHeight="2px" >
+            android:divider="#E2E2E2"
+            android:paddingBottom="10dp"
+            android:dividerHeight="2dp" >
         </ListView>
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="#F2F2F2" />
+            android:background="#E2E2E2" />
 	
 	<LinearLayout
             android:layout_width="match_parent"
@@ -57,24 +57,24 @@
                 android:layout_width="0dip"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:src="@drawable/home_purple" />
+                android:src="@drawable/home_grey" />
 
             <TextView
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:background="#F2F2F2" />
+                android:background="#E2E2E2" />
 
             <ImageView
                 android:id="@+id/pin"
                 android:layout_width="0dip"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:src="@drawable/pin_purple" />
+                android:src="@drawable/pin_grey" />
 
             <TextView
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:background="#F2F2F2" />
+                android:background="#E2E2E2" />
 
             <ImageView
                 android:id="@+id/blank"
