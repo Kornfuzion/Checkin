@@ -66,10 +66,14 @@ public class PlaceAdapter extends BaseAdapter {
         vi.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
             	
-            	TextView placeId = (TextView) v.findViewById(R.id.place_id_field);
-                Log.i(SharedObjects.TAG, "Place Id: " + placeId.getText());
                 Intent intent = new Intent(context, FriendsAtPlaceActivity.class);
+                TextView placeId = (TextView) v.findViewById(R.id.place_id_field);
+                Log.i(SharedObjects.TAG, "Place Id: " + placeId.getText());
                 intent.putExtra(SharedObjects.PLACE_ID, placeId.getText());
+                
+                TextView placeName = (TextView) v.findViewById(R.id.place_name);
+                Log.i(SharedObjects.TAG, "Place Name: " + placeName.getText());
+                intent.putExtra(SharedObjects.PLACE_NAME, placeName.getText());
                 context.startActivity(intent);
             }
         }); 

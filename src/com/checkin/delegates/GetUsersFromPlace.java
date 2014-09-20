@@ -7,16 +7,17 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Vector;
 
-import com.checkin.utils.Place;
-import com.checkin.utils.SharedObjects;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.ListView;
 
-public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<Place>>{
+import com.checkin.adapters.UserAdapter;
+import com.checkin.utils.SharedObjects;
+import com.checkin.utils.User;
+
+public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<User>>{
 	LocalBroadcastManager mLocalBroadcastManager;
    private ListView lv;
    private Context context;
@@ -33,7 +34,7 @@ public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<Place>>{
    }
    
    @Override
-   protected Vector<Place> doInBackground(String... arg0) {
+   protected Vector<User> doInBackground(String... arg0) {
 	   Log.d("g","getdata doinbackground");
 	   try{
 		   String place_ID = (String)arg0[0];
@@ -47,7 +48,7 @@ public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<Place>>{
    	            + "=" + URLEncoder.encode(phone_numbers, "UTF-8");
 
 		   //this URL determines which php code is executed at the server
-		   String link="http://ec2-54-84-102-132.compute-1.amazonaws.com/checkin/getusersfromplace.php";
+		   String link= SharedObjects.DB + "getusersfromplace.php";
 		   URL url = new URL(link);
 		   URLConnection conn = url.openConnection();
 		   conn.setDoOutput(true); 
@@ -71,27 +72,28 @@ public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<Place>>{
 		   String [] entries=result.split(delims1);
 		   Log.d("entries length","entries length is "+entries.length);
      	   
-		   Vector<Place> places = new Vector<Place>();
+		   Vector<User> friends = new Vector<User>();
 		   for(int i=0;i<entries.length;i++){
 			   Log.d("entries","entries is "+entries[i]);
 			   String [] columns=entries[i].split(delims2);
-			   Place tmp = Place.createPlace(columns);
+			   User tmp = User.createUser(columns);
 			   if (tmp != null){
-				   places.add(tmp);
+				   friends.add(tmp);
 			   }
 		   }
         	 
-		   return places;
+		   return friends;
          }catch(Exception e){
         	 Log.e(SharedObjects.TAG, e.toString());
-        	 return null;
+        	 return new Vector<User>();
          }
    }
    
    @Override
-   protected void onPostExecute(Vector<Place> list){
+   protected void onPostExecute(Vector<User> list){
 	   super.onPostExecute(list); 
-	   //TODO 
+	   UserAdapter pa = new UserAdapter(this.context, list);
+	   lv.setAdapter(pa);
    }
   
    

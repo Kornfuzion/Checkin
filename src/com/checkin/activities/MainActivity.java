@@ -121,7 +121,7 @@ public void fetchContacts() {
 					
 					if (hasPhoneNumber > 0) {
 						
-						friend.setName(name);
+						friend.setRealName(name);
 						
 						// Query and loop for every phone number of the contact
 						Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
