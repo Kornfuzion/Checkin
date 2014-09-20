@@ -54,6 +54,7 @@ public class UserAdapter extends BaseAdapter {
         
         TextView text = (TextView) vi.findViewById(R.id.aboutme);
         String blurb = friend.getUsername() + '\n' + friend.getRealName() + '\n' + friend.getAboutMe();
+        text.setText(blurb);
         return vi;
     }
 }

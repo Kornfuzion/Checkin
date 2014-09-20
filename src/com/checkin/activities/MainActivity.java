@@ -1,18 +1,18 @@
 package com.checkin.activities;
 
 import java.util.Vector;
-import com.checkin.delegates.GetPlaces;
-import com.checkin.utils.SharedObjects;
-import com.checkin.utils.User;
-import com.example.checkin.R;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,33 +22,40 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.os.Build;
-import android.provider.ContactsContract;
+
+import com.checkin.delegates.GetPlaces;
+import com.checkin.utils.SharedObjects;
+import com.checkin.utils.User;
+import com.example.checkin.R;
 
 public class MainActivity extends ActionBarActivity {
-
-	public static ProgressBar p;
-	public static ImageView refreshicon;
 	
 	@SuppressLint("NewApi")
 	public void refreshPlaces(View v){
 		ListView lv = (ListView) findViewById(R.id.places);
-		p.setVisibility(View.VISIBLE);
-		refreshicon.setImageResource(R.drawable.gone);
-		GetPlaces getPlaces = new GetPlaces(this, lv);
+		ProgressBar p = (ProgressBar) findViewById(R.id.progressBar);
+		ImageView rIcon = (ImageView) findViewById(R.id.refresh);
+		GetPlaces getPlaces = new GetPlaces(this, lv, p, rIcon);
 		getPlaces.execute(SharedObjects.phoneNumber);
+	}
+	
+	@SuppressLint("NewApi")
+	public void startMapActivity(View v){
+		Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
 	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		refreshicon=(ImageView)findViewById(R.id.refresh);
-
-		p=(ProgressBar)findViewById(R.id.progressBar);
-		p.setVisibility(View.INVISIBLE);
-		SharedObjects.phoneNumber = "4168411532";
+		
+		TelephonyManager tMgr = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
+		String mPhoneNumber = tMgr.getLine1Number();
+		
+		mPhoneNumber = "4168411532"; //FIXME Remove later
+		SharedObjects.phoneNumber = parsePhoneNumber(mPhoneNumber);
+		
 		fetchContacts();
 //		if (savedInstanceState == null) {
 //			getSupportFragmentManager().beginTransaction()
@@ -59,9 +66,7 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		ListView lv = (ListView) findViewById(R.id.places);
-		GetPlaces getPlaces = new GetPlaces(this, lv);
-		getPlaces.execute(SharedObjects.phoneNumber);
+		refreshPlaces(null);
 	};
 	
 	@Override
@@ -84,7 +89,7 @@ public class MainActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-public void fetchContacts() {
+	public void fetchContacts() {
 		
 		String phoneNumber = null;
 		String email = null;
@@ -128,11 +133,8 @@ public void fetchContacts() {
 						
 						while (phoneCursor.moveToNext()) {
 							phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
-							phoneNumber = phoneNumber.replaceAll("[^\\d.]", "");
-							if (phoneNumber.charAt(0) == '1'){
-								phoneNumber = phoneNumber.substring(1);
-							}
-							friend.setPhoneNumber(phoneNumber);
+							
+							friend.setPhoneNumber(parsePhoneNumber(phoneNumber));
 							Log.d(SharedObjects.TAG, phoneNumber);
 						}
 						phoneCursor.close();
@@ -164,5 +166,13 @@ public void fetchContacts() {
 		}
 	}
 
+	//helper functions
+	private String parsePhoneNumber(String phoneNumber){
+		phoneNumber = phoneNumber.replaceAll("[^\\d.]", "");
+		if (phoneNumber.charAt(0) == '1'){
+			phoneNumber = phoneNumber.substring(1);
+		}
+		return phoneNumber;
+	}
 	
 }

@@ -1,5 +1,6 @@
 package com.checkin.delegates;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -11,26 +12,36 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
+import com.checkin.activities.MainActivity;
+import com.checkin.adapters.PlaceAdapter;
 import com.checkin.utils.Place;
 import com.checkin.utils.SharedObjects;
-import com.checkin.adapters.PlaceAdapter;
+import com.example.checkin.R;
 
 public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 	LocalBroadcastManager mLocalBroadcastManager;
-   private ListView lv;
-   private Context context;
+	private ListView lv;
+	private ProgressBar p;
+	private ImageView refreshicon;
+	private Context context;
 
-   public GetPlaces(Context context, ListView listview) {
+   public GetPlaces(Context context, ListView listview, ProgressBar pb, ImageView imgView) {
       this.context = context;
-      //list view instead of statusField
       this.lv = listview;
+      this.p = pb;
+      this.refreshicon = imgView;
    }
 
    @Override
    protected void onPreExecute(){
 	   super.onPreExecute(); 
+	   p.setVisibility(View.VISIBLE);
+	   refreshicon.setImageResource(R.drawable.gone);
    }
    
    @Override
@@ -76,8 +87,7 @@ public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 		   }
 		   
 		   return places;
-         }catch(Exception e){
-        	 Log.e(SharedObjects.TAG, e.toString());
+         }catch(IOException e){
         	 Log.d(SharedObjects.TAG, e.toString());
         	 return new Vector<Place>();
          }
@@ -89,6 +99,9 @@ public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 	   PlaceAdapter pa = new PlaceAdapter(this.context, list);
 	   lv.setAdapter(pa);
 	   SharedObjects.places = list;
+	   
+	   p.setVisibility(View.INVISIBLE);
+	   refreshicon.setImageResource(R.drawable.refresh);
    }
   
    

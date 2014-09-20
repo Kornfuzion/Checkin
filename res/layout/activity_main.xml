@@ -96,7 +96,7 @@
             android:layout_height="2dp"
             android:background="#E2E2E2" />
 
-        <LinearLayout
+       <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal" >
@@ -112,28 +112,14 @@
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:background="#E2E2E2" />
-			
-            <RelativeLayout
-	            android:layout_width="40dp"
-	            android:gravity="center"
-	            android:layout_height="40dp" >
 				
-                <ImageView
-	                android:id="@+id/pin"
-	                android:layout_width="0dip"
-	                android:layout_weight="1"
-	                android:layout_height="match_parent"
-		            android:onClick="refreshPlaces"
-	                android:src="@drawable/pin_grey" />
-	                                
-	            <ProgressBar
-	                android:id="@+id/progressBar"
-	                android:layout_width="match_parent"
-	                android:layout_height="match_parent" />
-
-         	</RelativeLayout>
-         
-            
+			<ImageView
+                android:id="@+id/pin"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:src="@drawable/pin_grey" 
+                android:onClick="startMapActivity"/>
 
             <TextView
                 android:layout_width="2dp"
