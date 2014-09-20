@@ -1,15 +1,14 @@
 package com.checkin.activities;
 
 import java.util.Vector;
-
 import com.checkin.delegates.GetPlaces;
 import com.checkin.utils.SharedObjects;
 import com.checkin.utils.User;
 import com.example.checkin.R;
-
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -20,17 +19,35 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.os.Build;
 import android.provider.ContactsContract;
 
 public class MainActivity extends ActionBarActivity {
 
+	public static ProgressBar p;
+	public static ImageView refreshicon;
+	
+	@SuppressLint("NewApi")
+	public void refreshPlaces(View v){
+		ListView lv = (ListView) findViewById(R.id.places);
+		p.setVisibility(View.VISIBLE);
+		refreshicon.setImageResource(R.drawable.gone);
+		GetPlaces getPlaces = new GetPlaces(this, lv);
+		getPlaces.execute(SharedObjects.phoneNumber);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
+		refreshicon=(ImageView)findViewById(R.id.refresh);
+
+		p=(ProgressBar)findViewById(R.id.progressBar);
+		p.setVisibility(View.INVISIBLE);
 		SharedObjects.phoneNumber = "4168411532";
 		fetchContacts();
 //		if (savedInstanceState == null) {
@@ -145,4 +162,5 @@ public void fetchContacts() {
 		}
 	}
 
+	
 }
