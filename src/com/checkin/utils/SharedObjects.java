@@ -9,6 +9,7 @@ public class SharedObjects {
 	
 	public final static String PACKAGE_NAME = "com.checkin.";
 	public final static String PLACE_ID = PACKAGE_NAME + "PLACE_ID";
+	public final static String PLACE_NAME = PACKAGE_NAME + "PLACE_NAME";
 	
 	public static String phoneNumber = null;
 	public static Vector<User> friends;

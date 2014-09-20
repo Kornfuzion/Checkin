@@ -1,5 +1,6 @@
 package com.checkin.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,21 +10,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.checkin.delegates.GetPlaces;
+import com.checkin.delegates.GetUsersFromPlace;
 import com.checkin.utils.SharedObjects;
 import com.example.checkin.R;
 
 public class FriendsAtPlaceActivity extends ActionBarActivity {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.friend_main);
-		
-		// Get the message from the intent
-	    Intent intent = getIntent();
-	    String message = intent.getStringExtra(SharedObjects.PLACE_ID);
-
+	String placeID;
+	
+	@SuppressLint("NewApi")
+	public void refreshPlace(View v){
+		ListView lv = (ListView) findViewById(R.id.friends);
+		GetUsersFromPlace getUserFromPlace = new GetUsersFromPlace(this, lv);
+		getUserFromPlace.execute(placeID);
 	}
 	
 	public void goBack(View v){
@@ -31,9 +34,26 @@ public class FriendsAtPlaceActivity extends ActionBarActivity {
 	}
 
 	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.friend_main);
+		
+	    Intent intent = getIntent();
+	    
+	    String placeName = intent.getStringExtra(SharedObjects.PLACE_NAME);
+	    TextView tv = (TextView) findViewById(R.id.title);
+	    tv.setText(placeName);
+	    
+	    placeID = intent.getStringExtra(SharedObjects.PLACE_ID);
+	    
+
+	}
+	
+	
+	@Override
 	protected void onResume() {
 		super.onResume();
-		//TODO
+		refreshPlace(null);
 	};
 	
 	@Override
