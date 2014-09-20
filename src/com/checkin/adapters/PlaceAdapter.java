@@ -18,7 +18,7 @@ import com.example.checkin.R;
 public class PlaceAdapter extends BaseAdapter {
 
     Context context;
-    Vector<Place> data;
+    Vector<Place> data = new Vector<Place>();
     private static LayoutInflater inflater = null;
 
     public PlaceAdapter(Context context, Vector<Place> list) {

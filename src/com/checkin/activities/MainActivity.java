@@ -22,7 +22,7 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		String userNumber = "1";
+		String userNumber = "4168411532";
 		ListView lv = (ListView) findViewById(R.id.places);
 		GetPlaces getPlaces = new GetPlaces(this, lv);
 		getPlaces.execute(userNumber);

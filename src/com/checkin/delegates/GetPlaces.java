@@ -41,7 +41,7 @@ public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 		   String data  = URLEncoder.encode("phone_number", "UTF-8") 	 
                     + "=" + URLEncoder.encode(phone_number, "UTF-8");
 		   //this URL determines which php code is executed at the server
-		   String link="http://ec2-54-84-102-132.compute-1.amazonaws.com/getyourplaces.php";
+		   String link = SharedObjects.DB + "getyourplaces.php";
 		   URL url = new URL(link);
 		   URLConnection conn = url.openConnection();
 		   conn.setDoOutput(true); 
@@ -78,7 +78,7 @@ public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 		   return places;
          }catch(Exception e){
         	 Log.e(SharedObjects.TAG, e.toString());
-        	 return null;
+        	 return new Vector<Place>();
          }
    }
    
@@ -87,6 +87,7 @@ public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 	   super.onPostExecute(list); 
 	   PlaceAdapter pa = new PlaceAdapter(this.context, list);
 	   lv.setAdapter(pa);
+	   SharedObjects.places = list;
    }
   
    
