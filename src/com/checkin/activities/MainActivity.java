@@ -111,9 +111,9 @@ public void fetchContacts() {
 			// Loop for every contact in the phone
 			if (cursor.getCount() > 0) {
 				
-				User friend = new User();
+				
 				while (cursor.moveToNext()) {
-					
+					User friend = new User();
 					String contact_id = cursor.getString(cursor.getColumnIndex( _ID ));
 					String name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
 	
@@ -128,16 +128,18 @@ public void fetchContacts() {
 						
 						while (phoneCursor.moveToNext()) {
 							phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
+							phoneNumber = phoneNumber.replaceAll("[^\\d.]", "");
+							if (phoneNumber.charAt(0) == '1'){
+								phoneNumber = phoneNumber.substring(1);
+							}
 							friend.setPhoneNumber(phoneNumber);
-						
+							Log.d(SharedObjects.TAG, phoneNumber);
 						}
 						phoneCursor.close();
 					}
+					friends.add(friend);
 				}
-	
-				friends.add(friend);
 			}
-			
 			SharedObjects.friends = friends;
 		}catch (Exception e){
 			Log.d(SharedObjects.TAG, "Fetch Contacts Error!");
