@@ -21,6 +21,7 @@
                android:src="@drawable/james_profile_pic" />
 
            <TextView
+               android:id="@+id/aboutme"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:text="\nJohn Fake Doe\nToronto. 21. Swag."
