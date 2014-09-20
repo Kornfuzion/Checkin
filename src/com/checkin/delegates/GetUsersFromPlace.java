@@ -40,17 +40,17 @@ public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<User>>{
 		   String place_ID = (String)arg0[0];
 		   String data  = URLEncoder.encode("place_ID", "UTF-8") 	 
                     + "=" + URLEncoder.encode(place_ID, "UTF-8");
-//		   String phone_numbers="";
-//		   for(int i=0;i<SharedObjects.friends.size();i++){
-//			   phone_numbers+=SharedObjects.friends.get(i).getPhoneNumber()+',';
-//		   }
-		   String phone_numbers="4168411532,4168288350,";
+		   String phone_numbers="";
+		   for(int i=0;i<SharedObjects.friends.size();i++){
+			   phone_numbers+=SharedObjects.friends.get(i).getPhoneNumber()+',';
+		   }
+		   
 		   data  +="&"+ URLEncoder.encode("phone_numbers", "UTF-8") 
    	            + "=" + URLEncoder.encode(phone_numbers, "UTF-8");
 
 		   //this URL determines which php code is executed at the server
 		   String link= SharedObjects.DB + "getusersfromplace.php";
-//		   String link = SharedObjects.DB + "getyourplaces.php";
+
 		   URL url = new URL(link);
 		   URLConnection conn = url.openConnection();
 		   conn.setDoOutput(true); 
