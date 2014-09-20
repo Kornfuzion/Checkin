@@ -74,10 +74,11 @@ public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 				   places.add(tmp);
 			   }
 		   }
-        	 
+		   
 		   return places;
          }catch(Exception e){
         	 Log.e(SharedObjects.TAG, e.toString());
+        	 Log.d(SharedObjects.TAG, e.toString());
         	 return new Vector<Place>();
          }
    }
