@@ -26,7 +26,7 @@ public class Place {
 	private Vector<User> currentUsers;
 	private Integer numFriends = Integer.valueOf(0);
 	
-	private static String[] tableSchemaMapOrder = {NAME,LONG,LAT,RADIUS,NUMFRIENDS,ICONNUMBER, PLACE_ID};
+	private static String[] tableSchemaMapOrder = {NAME,LONG,LAT,RADIUS,NUMFRIENDS, PLACE_ID};
 	
 	public static Place createPlace(String[] columns){
 		Place tmp = new Place();
