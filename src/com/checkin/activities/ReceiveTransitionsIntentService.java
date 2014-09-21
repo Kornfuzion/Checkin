@@ -1,6 +1,6 @@
 package com.checkin.activities;
 
-import com.example.checkin.R;
+import com.checkin.R;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.LocationClient;
 
