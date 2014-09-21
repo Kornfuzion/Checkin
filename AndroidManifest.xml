@@ -6,9 +6,13 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="21" />
     
-    <uses-permission android:name="android.permission.INTERNET"/>
+	 <permission
+        android:name="com.checkin.activities.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+    
+	<uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
@@ -52,14 +56,17 @@
 	            android:value="com.checkin.activities.MainActivity" />
 	    </activity>
         
-	    <meta-data
+        
+         <meta-data
    			 android:name="com.google.android.gms.version"
     		 android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDHC_Ike-9Uto660feXpb5lKYVFuudnpwI" />
         <uses-library android:name="com.google.android.maps" />
-        <service android:name="com.example.testgeodetector2.ReceiveTransitionsIntentService" android:exported="false"></service>
-        
-    </application>
+        <service android:name="com.checkin.activities.ReceiveTransitionsIntentService" android:exported="false"></service>
+   
+         </application>
+
 </manifest>
+
