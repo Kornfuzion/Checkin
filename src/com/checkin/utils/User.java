@@ -10,11 +10,11 @@ import android.util.Log;
 public class User {
 	public static final String PHONE_NUMBER = "phone_number";
 	public static final String USERNAME = "username";
-	public static final String REALNAME = "realname";
+	public static final String NAME = "name";
 	public static final String ABOUT_ME = "about_me";
 	public static final String PROFILE_PIC = "profile_pic";
 	
-	private static String[] tableSchemaMapOrder = {REALNAME,PHONE_NUMBER,USERNAME,ABOUT_ME};
+	private static String[] tableSchemaMapOrder = {NAME,PHONE_NUMBER,USERNAME,ABOUT_ME};
 	
 	private String phoneNumber;
 	private String username;
@@ -26,7 +26,7 @@ public class User {
 		User tmp = new User();
 		try{
 			for (int i = 0; i < columns.length; i++){
-				if (tableSchemaMapOrder[i].equals(REALNAME)){
+				if (tableSchemaMapOrder[i].equals(NAME)){
 					tmp.realName = columns[i];
 				}else if  (tableSchemaMapOrder[i].equals(PHONE_NUMBER)){
 					tmp.phoneNumber = columns[i];

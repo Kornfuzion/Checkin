@@ -1,5 +1,8 @@
 package com.checkin.activities;
 
+import com.checkin.delegates.DeleteCurrentPlaces;
+import com.checkin.delegates.InsertCurrentPlaces;
+
 import com.checkin.R;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.LocationClient;
@@ -88,6 +91,11 @@ public class ReceiveTransitionsIntentService extends IntentService {
                 String ids = TextUtils.join(GeofenceUtils.GEOFENCE_ID_DELIMITER,geofenceIds);
                 String transitionType = getTransitionString(transition);
 
+                //TODO send to insertcurrentdb
+                if(transition==Geofence.GEOFENCE_TRANSITION_ENTER)
+                new InsertCurrentPlaces(this,1).execute(geofences.get(0).getRequestId());
+                else
+                	new DeleteCurrentPlaces(this,1).execute(geofences.get(0).getRequestId());
                 sendNotification(transitionType, ids);
 
                 // Log the transition type and a message

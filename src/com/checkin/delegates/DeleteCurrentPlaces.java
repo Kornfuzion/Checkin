@@ -12,11 +12,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.checkin.activities.GeofenceUtils;
-import com.checkin.activities.MapActivity;
-import com.checkin.activities.SimpleGeofence;
 import com.checkin.utils.SharedObjects;
-import com.google.android.gms.location.Geofence;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -25,14 +21,14 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
 
-public class InsertPlace  extends AsyncTask<String,Void,String>{
+public class DeleteCurrentPlaces  extends AsyncTask<String,Void,String>{
 
 	   private TextView statusField,roleField;
 	   private Context context;
 	   private int byGetOrPost = 1; 
 	   String longitude,latitude;
 	   //flag 0 means get and 1 means post.(By default it is get.)
-	   public InsertPlace(Context context,int flag) {
+	   public DeleteCurrentPlaces(Context context,int flag) {
 	      this.context = context;
 	      this.statusField = statusField;
 	      this.roleField = roleField;
@@ -40,9 +36,10 @@ public class InsertPlace  extends AsyncTask<String,Void,String>{
 	   }
 
 	   protected void onPreExecute(){
-	   super.onPreExecute();
+		   //TODO
 	   }
-
+	   
+	   @Override
 	   protected String doInBackground(String... arg0) {
 	      if(byGetOrPost == 0){ //means by Get Method
 	         try{
@@ -66,27 +63,12 @@ public class InsertPlace  extends AsyncTask<String,Void,String>{
     		 }
 	      }else{
 	         try{
-	        	 String name= (String)arg0[0];
-
-	        	 longitude= (String)arg0[1];
-
-	        	 latitude= (String)arg0[2];
+	        	 String place_ID= (String)arg0[0];
 	        	 //this url determines which php code is executed
-	        	 String link="http://ec2-54-84-102-132.compute-1.amazonaws.com/checkin/insertyourplaces.php";
+	        	 String link="http://ec2-54-84-102-132.compute-1.amazonaws.com/checkin/deletecurrentplaces.php";
 	        	 //encoding data into the URL to be sent over by POST method
-	        	 String data  = URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(name, "UTF-8");
+	        	 String data  = URLEncoder.encode("phone_number", "UTF-8") + "=" + URLEncoder.encode(SharedObjects.phoneNumber, "UTF-8");
 	            
-	        	 data  +="&"+ URLEncoder.encode("longitude", "UTF-8") 
-	    	            + "=" + URLEncoder.encode(longitude, "UTF-8");
-	        	 
-
-	        	 data  +="&"+ URLEncoder.encode("latitude", "UTF-8") 
-	    	            + "=" + URLEncoder.encode(latitude, "UTF-8");
-	        	 
-
-	        	 data  +="&"+ URLEncoder.encode("phone_number", "UTF-8") 
-	    	            + "=" + URLEncoder.encode(SharedObjects.phoneNumber+"", "UTF-8");
-
 	        	 URL url = new URL(link);
 	        	 URLConnection conn = url.openConnection(); 
 	        	 conn.setDoOutput(true); 
@@ -110,32 +92,5 @@ public class InsertPlace  extends AsyncTask<String,Void,String>{
 	   @Override
 	   protected void onPostExecute(String result){
 	      Log.d("got result","RESULT IS "+result);
-	      MapActivity.mRequestType = GeofenceUtils.REQUEST_TYPE.ADD;
-	        
-	        MapActivity.mUIGeofence1 = new SimpleGeofence(
-	                "1",
-	                // Get latitude, longitude, and radius from the UI
-	                 Double.parseDouble(latitude),
-	                 Double.parseDouble(longitude),
-	                50,
-	                // Set the expiration time
-	                2147483646,
-	                // Only detect entry transitions
-	                Geofence.GEOFENCE_TRANSITION_ENTER |Geofence.GEOFENCE_TRANSITION_EXIT);
-	        
-	        
-	        MapActivity.mCurrentGeofences.add(MapActivity.mUIGeofence1.toGeofence());
-	        
-	        try {
-	            // Try to add geofences
-	            MapActivity.mGeofenceRequester.addGeofences(MapActivity.mCurrentGeofences);
-	        } catch (UnsupportedOperationException e) {
-	            // Notify user that previous request hasn't finished.
-	           
-	        }
-
-	         
 	   }
-	   
-	   
 	}

@@ -71,10 +71,12 @@ public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<User>>{
 		   String delims1="::";
 		   String delims2="==";
 
+
+		   Log.d("result","result is: "+result);
+		   
 		   if(result.length()<=1)
 			   return null;
 		   
-		   Log.d("result","result is: "+result);
 		   String [] entries=result.split(delims1);
 		   Log.d("entries length","entries length is "+entries.length);
      	   

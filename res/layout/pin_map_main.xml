@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        android:background="#642D64">
 		
 		<ImageView
             android:id="@+id/back_arrow"
@@ -30,6 +31,16 @@
             android:textColor="#FFFFFF"
             android:gravity="center_vertical"
             android:background="#642D64"/>
+         
+         
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/checkmark"
+            android:gravity="center"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -38,8 +49,30 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp" >
+            android:layout_height="400dp" >
 
+               <fragment
+    android:id="@+id/mapView"
+    android:layout_width="match_parent"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_height="fill_parent"
+    />
+
+               <EditText
+                   android:gravity="center"
+                   android:id="@+id/editText1"
+                   android:layout_width="match_parent"
+                   android:layout_height="35dp"
+                   android:layout_marginTop="350dp"
+                   android:hint="Name this place!"
+                   android:textColorHint="#FFBBBBBB"
+                   android:background="#77000000"
+                   android:textColor="#FFFFFFFF"
+                   android:ems="10" >
+
+                   <requestFocus />
+               </EditText>
+            
         </FrameLayout>
 
 
@@ -52,14 +85,6 @@
         android:orientation="vertical"
         android:background="#642D64"
         android:gravity="center" >
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:background="#D2D2D2"
-            android:gravity="center"
-            android:text="Okay" />
 
     </LinearLayout>
 
