@@ -67,7 +67,7 @@
                android:layout_marginStart="10dp"
                android:layout_marginLeft="10dp"
                android:contentDescription="@string/img_desc"
-               android:src="@drawable/profileblue" />
+               android:src="@drawable/gone" />
 
            <TextView
                android:id="@+id/aboutme"

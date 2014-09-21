@@ -12,6 +12,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.checkin.utils.SharedObjects;
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -36,7 +38,7 @@ public class InsertUsers  extends AsyncTask<String,Void,String>{
 	      if(byGetOrPost == 0){ //means by Get Method
 	         try{
 	        	 String username = (String)arg0[0];
-	        	 String link = "http://ec2-54-84-102-132.compute-1.amazonaws.com/insertusers.php?user="+username;
+	        	 String link = SharedObjects.DB + "insertusers.php?user="+username;
 	        	 HttpClient client = new DefaultHttpClient();
 	        	 HttpGet request = new HttpGet();
 	        	 request.setURI(new URI(link));

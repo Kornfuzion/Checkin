@@ -12,30 +12,24 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+
 import com.checkin.activities.GeofenceUtils;
 import com.checkin.activities.MapActivity;
 import com.checkin.activities.SimpleGeofence;
 import com.checkin.utils.SharedObjects;
 import com.google.android.gms.location.Geofence;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.TextView;
-
 public class InsertPlace  extends AsyncTask<String,Void,String>{
 
-	   private TextView statusField,roleField;
 	   private Context context;
 	   private int byGetOrPost = 1; 
 	   String longitude,latitude;
 	   //flag 0 means get and 1 means post.(By default it is get.)
 	   public InsertPlace(Context context,int flag) {
 	      this.context = context;
-	      this.statusField = statusField;
-	      this.roleField = roleField;
 	      byGetOrPost = flag;
 	   }
 
@@ -72,7 +66,7 @@ public class InsertPlace  extends AsyncTask<String,Void,String>{
 
 	        	 latitude= (String)arg0[2];
 	        	 //this url determines which php code is executed
-	        	 String link="http://ec2-54-84-102-132.compute-1.amazonaws.com/checkin/insertyourplaces.php";
+	        	 String link= SharedObjects.DB + "insertyourplaces.php";
 	        	 //encoding data into the URL to be sent over by POST method
 	        	 String data  = URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(name, "UTF-8");
 	            

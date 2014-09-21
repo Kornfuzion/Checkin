@@ -12,26 +12,20 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.checkin.utils.SharedObjects;
-
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
+
+import com.checkin.utils.SharedObjects;
 
 public class InsertCurrentPlaces  extends AsyncTask<String,Void,String>{
 
-	   private TextView statusField,roleField;
 	   private Context context;
 	   private int byGetOrPost = 1; 
 	   String longitude,latitude;
 	   //flag 0 means get and 1 means post.(By default it is get.)
 	   public InsertCurrentPlaces(Context context,int flag) {
 	      this.context = context;
-	      this.statusField = statusField;
-	      this.roleField = roleField;
 	      byGetOrPost = flag;
 	   }
 
@@ -65,7 +59,7 @@ public class InsertCurrentPlaces  extends AsyncTask<String,Void,String>{
 	         try{
 	        	 String place_ID= (String)arg0[0];
 	        	 //this url determines which php code is executed
-	        	 String link="http://ec2-54-84-102-132.compute-1.amazonaws.com/checkin/insertcurrentplaces.php";
+	        	 String link= SharedObjects.DB +"insertcurrentplaces.php";
 	        	 //encoding data into the URL to be sent over by POST method
 	        	 String data  = URLEncoder.encode("place_ID", "UTF-8") + "=" + URLEncoder.encode(place_ID, "UTF-8");
 	            

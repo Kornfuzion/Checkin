@@ -100,7 +100,6 @@ public class MainActivity extends ActionBarActivity {
 	public void fetchContacts() {
 		
 		String phoneNumber = null;
-		String email = null;
 		
 		try{
 			Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
@@ -111,10 +110,6 @@ public class MainActivity extends ActionBarActivity {
 			Uri PhoneCONTENT_URI = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 			String Phone_CONTACT_ID = ContactsContract.CommonDataKinds.Phone.CONTACT_ID;
 			String NUMBER = ContactsContract.CommonDataKinds.Phone.NUMBER;
-			
-			Uri EmailCONTENT_URI =  ContactsContract.CommonDataKinds.Email.CONTENT_URI;
-			String EmailCONTACT_ID = ContactsContract.CommonDataKinds.Email.CONTACT_ID;
-			String DATA = ContactsContract.CommonDataKinds.Email.DATA;
 			
 			ContentResolver contentResolver = getContentResolver();
 			

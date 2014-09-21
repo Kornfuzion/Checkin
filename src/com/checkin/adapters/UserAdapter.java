@@ -1,5 +1,7 @@
 package com.checkin.adapters;
 
+import java.math.BigInteger;
+import java.util.Random;
 import java.util.Vector;
 
 import android.content.Context;
@@ -8,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.checkin.R;
+import com.checkin.delegates.GetUser;
 import com.checkin.utils.SharedObjects;
 import com.checkin.utils.User;
-import com.checkin.R;
 
 public class UserAdapter extends BaseAdapter {
 
@@ -51,6 +55,19 @@ public class UserAdapter extends BaseAdapter {
         if (vi == null){
         	vi = inflater.inflate(R.layout.friend_custom_row, null);
         }
+        
+        ImageView profilePic = (ImageView) vi.findViewById(R.id.profilepic);
+        int index;
+		if (friend.getPhoneNumber() == null){
+			Random rand = new Random(System.currentTimeMillis());
+		    index = rand.nextInt(8);
+		}
+		else{
+			BigInteger phoneNum = new BigInteger(friend.getPhoneNumber());
+			BigInteger indexBig = phoneNum.mod(new BigInteger("8"));
+			index = indexBig.intValue();
+		}
+		profilePic.setImageResource(GetUser.profileResIds[index]);
         
         TextView text = (TextView) vi.findViewById(R.id.aboutme);
         String blurb = friend.getUsername() + '\n' + friend.getRealName() + '\n' + friend.getAboutMe();
