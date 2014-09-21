@@ -8,6 +8,7 @@ public class SharedObjects {
 	public final static String DB = "http://ec2-54-84-102-132.compute-1.amazonaws.com/checkin/";
 	
 	public final static String PACKAGE_NAME = "com.checkin.";
+	public final static String DISPLAYED_PACKAGE_NAME = "com.example.checkin";
 	public final static String PLACE_ID = PACKAGE_NAME + "PLACE_ID";
 	public final static String PLACE_NAME = PACKAGE_NAME + "PLACE_NAME";
 	
