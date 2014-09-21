@@ -42,7 +42,8 @@ public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<User>>{
                     + "=" + URLEncoder.encode(place_ID, "UTF-8");
 		   String phone_numbers="";
 		   for(int i=0;i<SharedObjects.friends.size();i++){
-			   phone_numbers+=SharedObjects.friends.get(i).getPhoneNumber()+',';
+			   if(SharedObjects.friends.get(i).getPhoneNumber()!=null)
+			   phone_numbers+=SharedObjects.friends.get(i).getPhoneNumber()+" ";
 		   }
 		   
 		   data  +="&"+ URLEncoder.encode("phone_numbers", "UTF-8") 
@@ -70,6 +71,9 @@ public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<User>>{
 		   String delims1="::";
 		   String delims2="==";
 
+		   if(result.length()<=1)
+			   return null;
+		   
 		   Log.d("result","result is: "+result);
 		   String [] entries=result.split(delims1);
 		   Log.d("entries length","entries length is "+entries.length);
@@ -94,8 +98,10 @@ public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<User>>{
    @Override
    protected void onPostExecute(Vector<User> list){
 	   super.onPostExecute(list); 
+	   if(list!=null){
 	   UserAdapter pa = new UserAdapter(this.context, list);
 	   lv.setAdapter(pa);
+	   }
    }
   
    
