@@ -7,6 +7,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -26,13 +28,22 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.checkin.R;
 import com.checkin.delegates.GetPlaces;
 import com.checkin.delegates.GetUser;
 import com.checkin.utils.SharedObjects;
 import com.checkin.utils.User;
-import com.checkin.R;
+import com.moxtra.sdk.MXAccountManager;
+import com.moxtra.sdk.MXAccountManager.MXAccountLinkListener;
+import com.moxtra.sdk.MXSDKConfig.MXProfileInfo;
+import com.moxtra.sdk.MXSDKConfig.MXUserIdentityType;
+import com.moxtra.sdk.MXSDKConfig.MXUserInfo;
+import com.moxtra.sdk.MXSDKException.InvalidParameter;
 
 public class MainActivity extends ActionBarActivity {
+	
+	MXAccountManager mAcctMgr = null;
+	
 	
 	@SuppressLint("NewApi")
 	public void refreshPlaces(View v){
@@ -42,11 +53,6 @@ public class MainActivity extends ActionBarActivity {
 		GetPlaces getPlaces = new GetPlaces(this, lv, p, rIcon);
 		getPlaces.execute(SharedObjects.phoneNumber);
 		
-		ImageView imgView = (ImageView) findViewById(R.id.profilepic);
-		TextView usernameView = (TextView) findViewById(R.id.username);
-		TextView aboutMeView = (TextView) findViewById(R.id.aboutme);
-		GetUser getUser = new GetUser(this, imgView, usernameView, null, aboutMeView);
-		getUser.execute(SharedObjects.phoneNumber);
 	}
 	
 	@SuppressLint("NewApi")
@@ -70,6 +76,32 @@ public class MainActivity extends ActionBarActivity {
 		SharedObjects.phoneNumber = parsePhoneNumber(mPhoneNumber);
 		
 		fetchContacts();
+			
+		ImageView imgView = (ImageView) findViewById(R.id.profilepic);
+		TextView usernameView = (TextView) findViewById(R.id.username);
+		TextView aboutMeView = (TextView) findViewById(R.id.aboutme);
+		GetUser getUser = new GetUser(this, imgView, usernameView, null, aboutMeView);
+		getUser.execute(SharedObjects.phoneNumber);
+		
+		try {
+		    mAcctMgr = MXAccountManager.createInstance(this, SharedObjects.MOXTRA_CLIENT_ID, SharedObjects.MOXTRA_CLIENT_SECRET);
+		} catch (InvalidParameter invalidParameter) {
+		    invalidParameter.printStackTrace();
+		    return;
+		} 
+		
+		//should really occur at registration
+		MXUserInfo userInfo = new MXUserInfo(SharedObjects.phoneNumber,MXUserIdentityType.IdentityUniqueId);
+		Bitmap bm = BitmapFactory.decodeResource(getResources(), User.GenerateProfileId(SharedObjects.phoneNumber));
+		
+		MXProfileInfo profile = new MXProfileInfo(SharedObjects.name,"",bm);
+		mAcctMgr.setupUser(userInfo, profile ,SharedObjects.MOXTRA_CLIENT_SECRET, new MXAccountLinkListener(){
+		        @Override
+		        public void onLinkAccountDone(boolean bSuccess){
+		        	//Callback if you want to do anything...s
+		        }
+		});
+				
 //		if (savedInstanceState == null) {
 //			getSupportFragmentManager().beginTransaction()
 //					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -102,7 +134,39 @@ public class MainActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void fetchContacts() {
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+		MXAccountManager.releaseInstance();
+	}
+
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	public static class PlaceholderFragment extends Fragment {
+
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_main, container,
+					false);
+			return rootView;
+		}
+	}
+
+	//helper functions
+	private String parsePhoneNumber(String phoneNumber){
+		phoneNumber = phoneNumber.replaceAll("[^\\d.]", "");
+		if (phoneNumber.charAt(0) == '1'){
+			phoneNumber = phoneNumber.substring(1);
+		}
+		return phoneNumber;
+	}
+	
+	private void fetchContacts() {
 		
 		String phoneNumber = null;
 		
@@ -157,32 +221,6 @@ public class MainActivity extends ActionBarActivity {
 			Log.d(SharedObjects.TAG, "Fetch Contacts Error!");
 		}
 		
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			return rootView;
-		}
-	}
-
-	//helper functions
-	private String parsePhoneNumber(String phoneNumber){
-		phoneNumber = phoneNumber.replaceAll("[^\\d.]", "");
-		if (phoneNumber.charAt(0) == '1'){
-			phoneNumber = phoneNumber.substring(1);
-		}
-		return phoneNumber;
 	}
 	
 }

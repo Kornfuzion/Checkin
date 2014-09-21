@@ -1,5 +1,10 @@
 package com.checkin.utils;
 
+import java.math.BigInteger;
+import java.util.Random;
+
+import com.checkin.R;
+
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -11,6 +16,15 @@ public class User {
 	public static final String PROFILE_PIC = "profile_pic";
 	
 	private static String[] tableSchemaMapOrder = {NAME,PHONE_NUMBER,USERNAME,ABOUT_ME};
+	
+	private static int[] profileResIds = {R.drawable.profileblue,
+		R.drawable.profilegreen,
+		R.drawable.profilegrey,
+		R.drawable.profileorange,
+		R.drawable.profilepink,
+		R.drawable.profilepurple,
+		R.drawable.profilered,
+		R.drawable.profileyellow};
 	
 	private String phoneNumber;
 	private String username;
@@ -44,6 +58,21 @@ public class User {
 			return null;
 		}
 		return tmp;
+	}
+	
+	public static int GenerateProfileId(String phoneNumber){
+		int index;
+		if (phoneNumber == null){
+			Random rand = new Random(System.currentTimeMillis());
+		    index = rand.nextInt(8);
+		}
+		else{
+			BigInteger phoneNum = new BigInteger(phoneNumber);
+			BigInteger indexBig = phoneNum.mod(new BigInteger("8"));
+			index = indexBig.intValue();
+		}
+		
+		return profileResIds[index];
 	}
 	
 	//might be public void setProfilePic(bytearray)

@@ -16,5 +16,12 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="MoxtraTheme" parent="AppBaseTheme">
+	    <item name="android:windowNoTitle">true</item>
+	    <item name="android:windowAnimationStyle">@style/MoxActivityAnimation</item>
+	    <item name="android:textViewStyle">@style/MoxTextViewBase</item>
+	    <item name="android:listViewStyle">@style/MoxListViewBase</item>
+	</style>
 
 </resources>

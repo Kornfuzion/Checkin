@@ -1,7 +1,5 @@
 package com.checkin.adapters;
 
-import java.math.BigInteger;
-import java.util.Random;
 import java.util.Vector;
 
 import android.content.Context;
@@ -14,9 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.checkin.R;
-import com.checkin.delegates.GetUser;
 import com.checkin.utils.SharedObjects;
 import com.checkin.utils.User;
+import com.moxtra.sdk.MXChatManager;
+import com.moxtra.sdk.MXException.AccountManagerIsNotValid;
 
 public class UserAdapter extends BaseAdapter {
 
@@ -56,18 +55,27 @@ public class UserAdapter extends BaseAdapter {
         	vi = inflater.inflate(R.layout.friend_custom_row, null);
         }
         
+        vi.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+            	try {
+            	    MXChatManager.getInstance().createChat(new MXChatManager.OnCreateChatListener() {
+            	        @Override
+            	        public void onCreateChatSuccess(String binderID) {
+            	            Log.d(SharedObjects.TAG, "onCreateChatSuccess(), binderID = " + binderID);
+            	        }
+            	        @Override
+            	        public void onCreateChatFailed(int errorCode, String message) {
+            	            Log.d(SharedObjects.TAG, "onCreateChatFailed(), errorCode = " + errorCode + ", message = " + message);
+            	        }
+            	    });
+            	} catch (AccountManagerIsNotValid e) {
+            	    e.printStackTrace();
+            	}
+            }
+        }); 
+        
         ImageView profilePic = (ImageView) vi.findViewById(R.id.profilepic);
-        int index;
-		if (friend.getPhoneNumber() == null){
-			Random rand = new Random(System.currentTimeMillis());
-		    index = rand.nextInt(8);
-		}
-		else{
-			BigInteger phoneNum = new BigInteger(friend.getPhoneNumber());
-			BigInteger indexBig = phoneNum.mod(new BigInteger("8"));
-			index = indexBig.intValue();
-		}
-		profilePic.setImageResource(GetUser.profileResIds[index]);
+		profilePic.setImageResource(User.GenerateProfileId(friend.getPhoneNumber()));
         
         TextView text = (TextView) vi.findViewById(R.id.aboutme);
         String blurb = friend.getUsername() + '\n' + friend.getRealName() + '\n' + friend.getAboutMe();

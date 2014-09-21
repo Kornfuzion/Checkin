@@ -2,22 +2,26 @@ package com.checkin.delegates;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.Random;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.checkin.R;
 import com.checkin.utils.SharedObjects;
 import com.checkin.utils.User;
+import com.moxtra.sdk.MXAccountManager;
+import com.moxtra.sdk.MXAccountManager.MXAccountLinkListener;
+import com.moxtra.sdk.MXSDKConfig.MXProfileInfo;
+import com.moxtra.sdk.MXSDKConfig.MXUserIdentityType;
+import com.moxtra.sdk.MXSDKConfig.MXUserInfo;
 
 public class GetUser extends AsyncTask<String,Void, User>{
 	LocalBroadcastManager mLocalBroadcastManager;
@@ -87,15 +91,6 @@ public class GetUser extends AsyncTask<String,Void, User>{
 			return null;
 		}
 	}
-   
-	public static int[] profileResIds = {R.drawable.profileblue,
-										R.drawable.profilegreen,
-										R.drawable.profilegrey,
-										R.drawable.profileorange,
-										R.drawable.profilepink,
-										R.drawable.profilepurple,
-										R.drawable.profilered,
-										R.drawable.profileyellow};
 	
 	@Override
 	protected void onPostExecute(User user){
@@ -114,18 +109,11 @@ public class GetUser extends AsyncTask<String,Void, User>{
 			}
 			
 			if (this.profilePic != null){
-				int index;
-				if (user.getPhoneNumber() == null){
-					Random rand = new Random(System.currentTimeMillis());
-				    index = rand.nextInt(8);
-				}
-				else{
-					BigInteger phoneNum = new BigInteger(user.getPhoneNumber());
-					BigInteger indexBig = phoneNum.mod(new BigInteger("8"));
-					index = indexBig.intValue();
-				}
-				this.profilePic.setImageResource(profileResIds[index]);
+				this.profilePic.setImageResource(User.GenerateProfileId(user.getPhoneNumber()));
 			}
 		}
+		
+		
+		
 	}
 }
