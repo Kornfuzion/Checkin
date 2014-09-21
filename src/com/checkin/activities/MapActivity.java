@@ -156,7 +156,7 @@ public class MapActivity extends FragmentActivity{
         mGeofenceRemover = new GeofenceRemover(this);
 
         // Attach to the main UI
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.map_main);
         
         FragmentManager myFragmentManager = getSupportFragmentManager();
         SupportMapFragment mySupportMapFragment 
@@ -207,7 +207,7 @@ public class MapActivity extends FragmentActivity{
 			gMap.addMarker(new MarkerOptions().position(arg0));
 			
 			CircleOptions circleOptions = new CircleOptions()
-			.center(arg0).radius(30)
+			.center(arg0).radius(50)
 			.fillColor(0x5500ff00)	//55 represents transparency , 00ff00 specifies the fill colour
 			.strokeWidth(2);
 			gMap.addCircle(circleOptions);
