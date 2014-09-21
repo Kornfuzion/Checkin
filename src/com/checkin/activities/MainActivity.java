@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
 		TelephonyManager tMgr = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		String mPhoneNumber = tMgr.getLine1Number();
 		
-		//mPhoneNumber = "4168411532"; //FIXME Remove later
+		mPhoneNumber = "4168411532"; //FIXME Remove later
 		SharedObjects.phoneNumber = parsePhoneNumber(mPhoneNumber);
 		
 		fetchContacts();
