@@ -53,6 +53,7 @@ import android.widget.Toast;
 
 import com.checkin.R;
 import com.checkin.activities.GeofenceUtils.REQUEST_TYPE;
+import com.checkin.delegates.InsertPlace;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.Geofence;

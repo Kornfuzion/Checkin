@@ -15,10 +15,9 @@ import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.checkin.delegates.GetPlaces;
+import com.checkin.R;
 import com.checkin.delegates.GetUsersFromPlace;
 import com.checkin.utils.SharedObjects;
-import com.checkin.R;
 
 public class FriendsAtPlaceActivity extends ActionBarActivity {
 

@@ -88,7 +88,7 @@ public class GetUser extends AsyncTask<String,Void, User>{
 		}
 	}
    
-	private static int[] profileResIds = {R.drawable.profileblue,
+	public static int[] profileResIds = {R.drawable.profileblue,
 										R.drawable.profilegreen,
 										R.drawable.profilegrey,
 										R.drawable.profileorange,
@@ -124,7 +124,7 @@ public class GetUser extends AsyncTask<String,Void, User>{
 					BigInteger indexBig = phoneNum.mod(new BigInteger("8"));
 					index = indexBig.intValue();
 				}
-				this.profilePic.setImageResource(profileResIds[index]);;
+				this.profilePic.setImageResource(profileResIds[index]);
 			}
 		}
 	}

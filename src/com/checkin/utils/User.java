@@ -1,9 +1,5 @@
 package com.checkin.utils;
 
-import java.util.Vector;
-
-import com.google.android.gms.maps.model.LatLng;
-
 import android.graphics.Bitmap;
 import android.util.Log;
 

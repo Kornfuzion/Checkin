@@ -17,11 +17,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.checkin.activities.MainActivity;
+import com.checkin.R;
 import com.checkin.adapters.PlaceAdapter;
 import com.checkin.utils.Place;
 import com.checkin.utils.SharedObjects;
-import com.checkin.R;
 
 public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 	LocalBroadcastManager mLocalBroadcastManager;

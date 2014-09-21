@@ -101,8 +101,8 @@ public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<User>>{
    protected void onPostExecute(Vector<User> list){
 	   super.onPostExecute(list); 
 	   if(list!=null){
-	   UserAdapter pa = new UserAdapter(this.context, list);
-	   lv.setAdapter(pa);
+		   UserAdapter pa = new UserAdapter(this.context, list);
+		   lv.setAdapter(pa);
 	   }
    }
   
