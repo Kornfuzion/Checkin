@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.checkin.activities.GeofenceUtils.REQUEST_TYPE;
+
 import com.checkin.delegates.InsertPlace;
-import com.example.checkin.R;
+
+import com.checkin.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.Geofence;

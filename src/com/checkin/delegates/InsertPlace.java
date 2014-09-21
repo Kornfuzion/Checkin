@@ -40,10 +40,9 @@ public class InsertPlace  extends AsyncTask<String,Void,String>{
 	   }
 
 	   protected void onPreExecute(){
-		   //TODO
+	   super.onPreExecute();
 	   }
-	   
-	   @Override
+
 	   protected String doInBackground(String... arg0) {
 	      if(byGetOrPost == 0){ //means by Get Method
 	         try{
@@ -87,6 +86,7 @@ public class InsertPlace  extends AsyncTask<String,Void,String>{
 
 	        	 data  +="&"+ URLEncoder.encode("phone_number", "UTF-8") 
 	    	            + "=" + URLEncoder.encode(SharedObjects.phoneNumber+"", "UTF-8");
+
 	        	 URL url = new URL(link);
 	        	 URLConnection conn = url.openConnection(); 
 	        	 conn.setDoOutput(true); 
@@ -133,5 +133,9 @@ public class InsertPlace  extends AsyncTask<String,Void,String>{
 	            // Notify user that previous request hasn't finished.
 	           
 	        }
+
+	         
 	   }
+	   
+	   
 	}

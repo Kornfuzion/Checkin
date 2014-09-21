@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.checkin.utils.SharedObjects;
 import com.checkin.utils.User;
-import com.example.checkin.R;
+import com.checkin.R;
 
 public class UserAdapter extends BaseAdapter {
 

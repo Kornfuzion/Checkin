@@ -17,7 +17,7 @@
             android:layout_width="0dip"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:src="@drawable/back_arrow"
+            android:src="@drawable/backarrow"
             android:background="#642D64" />
 		
          <TextView
@@ -103,7 +103,7 @@
                 android:layout_width="0dip"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:src="@drawable/home_purple" />
+                android:src="@drawable/homepurple" />
 
             <TextView
                 android:layout_width="2dp"
@@ -115,7 +115,7 @@
                 android:layout_width="0dip"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:src="@drawable/pin_purple" />
+                android:src="@drawable/pinpurple" />
 
             <TextView
                 android:layout_width="2dp"

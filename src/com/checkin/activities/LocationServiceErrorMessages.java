@@ -16,7 +16,7 @@
 
 package com.checkin.activities;
 
-import com.example.checkin.R;
+import com.checkin.R;
 import com.google.android.gms.common.ConnectionResult;
 import android.content.Context;
 import android.content.res.Resources;

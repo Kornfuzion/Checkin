@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:background="#642D64"
                 android:onClick="goBack"
-	            android:src="@drawable/back_arrow"/>
+	            android:src="@drawable/backarrow"/>
          </RelativeLayout>
 		
 		
@@ -76,7 +76,7 @@
                 android:layout_width="0dip"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:src="@drawable/pin_grey" />
+                android:src="@drawable/pingrey" />
 
             <TextView
                 android:layout_width="2dp"

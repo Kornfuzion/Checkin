@@ -21,7 +21,7 @@ import com.checkin.activities.MainActivity;
 import com.checkin.adapters.PlaceAdapter;
 import com.checkin.utils.Place;
 import com.checkin.utils.SharedObjects;
-import com.example.checkin.R;
+import com.checkin.R;
 
 public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
 	LocalBroadcastManager mLocalBroadcastManager;
@@ -46,7 +46,7 @@ public class GetPlaces extends AsyncTask<String,Void,Vector<Place>>{
    
    @Override
    protected Vector<Place> doInBackground(String... arg0) {
-	   Log.d("g","getdata doinbackground");
+	   Log.d(SharedObjects.TAG,"Getting Place Data");
 	   try{
 		   String phone_number = (String)arg0[0];
 		   String data  = URLEncoder.encode("phone_number", "UTF-8") 	 
