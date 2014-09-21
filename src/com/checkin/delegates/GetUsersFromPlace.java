@@ -5,6 +5,8 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import android.content.Context;
@@ -13,6 +15,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.checkin.activities.FriendsAtPlaceActivity;
 import com.checkin.adapters.UserAdapter;
 import com.checkin.utils.SharedObjects;
 import com.checkin.utils.User;
@@ -21,6 +24,7 @@ public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<User>>{
 	LocalBroadcastManager mLocalBroadcastManager;
    private ListView lv;
    private Context context;
+
 
    public GetUsersFromPlace(Context context, ListView listview) {
       this.context = context;
@@ -103,7 +107,14 @@ public class GetUsersFromPlace extends AsyncTask<String,Void,Vector<User>>{
 	   if(list!=null){
 		   UserAdapter pa = new UserAdapter(this.context, list);
 		   lv.setAdapter(pa);
+		   
+		   FriendsAtPlaceActivity.uniqueIds = new Vector<String>();
+		   for (User user: list){
+			   FriendsAtPlaceActivity.uniqueIds.add(user.getPhoneNumber());
+		   }
 	   }
+	   
+
    }
   
    

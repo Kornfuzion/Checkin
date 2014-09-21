@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -68,11 +69,14 @@ public class MainActivity extends ActionBarActivity {
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 	            WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_main);
-		
+		Typeface font1 = Typeface.createFromAsset(getAssets(), "raleway_thin.otf"); 
+		TextView t=(TextView)findViewById(R.id.logo); t.setTypeface(font1); 
+		t=(TextView)findViewById(R.id.username); t.setTypeface(font1); 
+		t=(TextView)findViewById(R.id.aboutme); t.setTypeface(font1);
 		TelephonyManager tMgr = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 		String mPhoneNumber = tMgr.getLine1Number();
 		
-		mPhoneNumber = "4168411532"; //FIXME Remove later
+//		mPhoneNumber = "4168411532"; //FIXME Remove later
 		SharedObjects.phoneNumber = parsePhoneNumber(mPhoneNumber);
 		
 		fetchContacts();

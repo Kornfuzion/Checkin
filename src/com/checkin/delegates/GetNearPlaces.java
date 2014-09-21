@@ -110,7 +110,7 @@ public class GetNearPlaces extends AsyncTask<String,Void,Vector<Place>>{
 					   Log.d("entries","entries is "+entries[i]);
 					   String [] columns=entries[i].split(delims2);
 					   MapActivity.gMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(columns[2]), Double.parseDouble(columns[1])))
-					   .title(columns[0]).snippet("Tap to Subscribe"));
+					   .title(columns[0]).snippet("Tap to Subscribe to "+columns[3]));
 					    CircleOptions circleOptions = new CircleOptions()
 						.center(new LatLng(Double.parseDouble(columns[2]), Double.parseDouble(columns[1]))).radius(30)
 						.fillColor(0x5500ff00)	//55 represents transparency , 00ff00 specifies the fill colour

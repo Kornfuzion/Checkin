@@ -7,6 +7,7 @@ import java.util.List;
 import com.checkin.activities.GeofenceUtils.REQUEST_TYPE;
 import com.checkin.delegates.GetNearPlaces;
 import com.checkin.delegates.InsertPlace;
+import com.checkin.delegates.SubscribePlace;
 import com.checkin.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -34,6 +35,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -49,6 +51,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.checkin.R;
@@ -187,7 +190,9 @@ public class MapActivity extends FragmentActivity {
 
 	        // Attach to the main UI
 	        setContentView(R.layout.pin_map_main);
-	        
+	        Typeface font1 = Typeface.createFromAsset(getAssets(), "raleway_thin.otf"); 
+	        TextView t=(TextView)findViewById(R.id.logo);
+	        t.setTypeface(font1);
 	        FragmentManager myFragmentManager = getSupportFragmentManager();
 	        SupportMapFragment mySupportMapFragment 
 	         = (SupportMapFragment)myFragmentManager.findFragmentById(R.id.mapView);
@@ -284,14 +289,7 @@ public class MapActivity extends FragmentActivity {
  
 				// show it
 				alertDialog.show();
-				
-								
-				
-				
-				
-		        
-		        
-				
+
 			}
 		});
 	        
@@ -302,7 +300,7 @@ public class MapActivity extends FragmentActivity {
 				
 				LayoutInflater li = LayoutInflater.from(MapActivity.this);
 				View promptsView = li.inflate(R.layout.prompts, null);
- 
+ /*
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						MapActivity.this);
  
@@ -343,6 +341,10 @@ public class MapActivity extends FragmentActivity {
  
 				// show it
 				alertDialog.show();
+				*/
+				String snippet=arg0.getSnippet();
+				String[] s=snippet.split(" ");
+				new SubscribePlace(MapActivity.this,1).execute(s[4]);
 			}
 	    	
 	    });

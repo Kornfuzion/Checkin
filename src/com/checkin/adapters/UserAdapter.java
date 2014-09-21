@@ -3,6 +3,8 @@ package com.checkin.adapters;
 import java.util.Vector;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +16,6 @@ import android.widget.TextView;
 import com.checkin.R;
 import com.checkin.utils.SharedObjects;
 import com.checkin.utils.User;
-import com.moxtra.sdk.MXChatManager;
-import com.moxtra.sdk.MXException.AccountManagerIsNotValid;
 
 public class UserAdapter extends BaseAdapter {
 
@@ -45,9 +45,10 @@ public class UserAdapter extends BaseAdapter {
         return position;
     }
 
+    User friend;
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        User friend = data.get(position);
+        friend = data.get(position);
     	Log.d(SharedObjects.TAG,data.get(position).toString());
     	//this part is useful
         View vi = convertView;
@@ -57,20 +58,10 @@ public class UserAdapter extends BaseAdapter {
         
         vi.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-            	try {
-            	    MXChatManager.getInstance().createChat(new MXChatManager.OnCreateChatListener() {
-            	        @Override
-            	        public void onCreateChatSuccess(String binderID) {
-            	            Log.d(SharedObjects.TAG, "onCreateChatSuccess(), binderID = " + binderID);
-            	        }
-            	        @Override
-            	        public void onCreateChatFailed(int errorCode, String message) {
-            	            Log.d(SharedObjects.TAG, "onCreateChatFailed(), errorCode = " + errorCode + ", message = " + message);
-            	        }
-            	    });
-            	} catch (AccountManagerIsNotValid e) {
-            	    e.printStackTrace();
-            	}
+            	//CALL THE PERSON!
+            	Intent callIntent = new Intent(Intent.ACTION_CALL);
+            	callIntent.setData(Uri.parse("tel:" + friend.getPhoneNumber()));
+            	context.startActivity(callIntent);
             }
         }); 
         
