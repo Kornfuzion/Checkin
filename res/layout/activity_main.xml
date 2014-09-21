@@ -8,33 +8,41 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal" 
-        android:background="#642D64">
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" 
+        android:background="#252525">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_marginLeft="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_launcher" />
 		
          <TextView
             android:id="@+id/logo"
             android:layout_width="0dip"
             android:layout_weight="5"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:text="@string/app_name" 
-            android:textSize="25sp"
+            android:text="Favourite Places" 
+            android:textSize="20sp"
             android:textColor="#FFFFFF"
             android:gravity="center_vertical"
             />
          
          <RelativeLayout
-             android:layout_width="40dp"
+             android:layout_width="50dp"
              android:gravity="center"
-             android:layout_height="40dp" >
+             android:layout_height="match_parent" >
 
              <ImageView
                  android:id="@+id/refresh"
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
-                 android:background="#642D64"
+                 android:background="#252525"
                  android:contentDescription="@string/img_desc"
                  android:onClick="refreshPlaces"
                  android:src="@drawable/refresh" />
@@ -47,58 +55,62 @@
          </RelativeLayout>
     </LinearLayout>
       
+     <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical" 
+           android:gravity="center">
        <TextView
             android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:background="#642D64"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:textColor="#FFFFFF"
             android:gravity="center" />
 
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="100dp"
-           android:orientation="horizontal" >
+           android:orientation="horizontal" 
+           android:background="#FFFFFF"
+           android:gravity="center_vertical">
 
            <ImageView
                android:id="@+id/profilepic"
+               android:gravity="center"
+               android:layout_marginLeft="10dp"
                android:layout_width="90dp"
                android:layout_height="match_parent"
-               android:layout_marginStart="10dp"
-               android:layout_marginLeft="10dp"
                android:contentDescription="@string/img_desc"
                android:src="@drawable/profileblue" />
 
            <TextView
                android:id="@+id/aboutme"
+               android:gravity="center"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
-               android:layout_marginStart="20dp"
-               android:layout_marginLeft="20dp"
                 />
            
+       </LinearLayout>
        </LinearLayout>
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="2dp"
             android:layout_marginTop="5dp"
-            android:background="#E2E2E2" />
+            android:background="#FFFFFFFF" />
 
         <ListView
             android:id="@+id/places"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="#FFFFFF"
             android:layout_weight="1"
-            android:divider="#E2E2E2"
+            android:divider="#EEEEEE"
             android:paddingBottom="10dp"
             android:dividerHeight="2dp" >
         </ListView>
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            android:background="#E2E2E2" />
 
        <LinearLayout
             android:layout_width="match_parent"

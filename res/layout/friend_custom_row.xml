@@ -10,7 +10,8 @@
    <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="100dp"
-           android:orientation="horizontal" >
+           android:orientation="horizontal"
+           android:gravity="center_vertical" >
 
            <ImageView
                android:id="@+id/profilepic"
@@ -22,6 +23,7 @@
 
            <TextView
                android:id="@+id/aboutme"
+               android:gravity="center"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:text="\nJohn Fake Doe\nToronto. 21. Swag."

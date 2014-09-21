@@ -8,26 +8,39 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:orientation="horizontal" 
+        android:gravity="center_vertical"
         android:background="#642D64">
 		
 		<ImageView
             android:id="@+id/back_arrow"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:onClick="goback"
+            android:layout_marginLeft="5dp"
             android:src="@drawable/backarrow"
             android:background="#642D64" />
+		
+		<TextView
+		    android:layout_weight="0"
+		    android:layout_width="1dp"
+		    android:layout_marginLeft="5dp"
+		    android:layout_marginRight="5dp"
+		    android:layout_height="25dp"
+		    android:background="#66FFFFFF"
+		    android:text=""
+		    />
+		
 		
          <TextView
             android:id="@+id/logo"
             android:layout_width="0dip"
             android:layout_weight="5"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:text="Pin Location" 
-            android:textSize="20dp"
-            android:paddingLeft="10dp"
+            android:textSize="20sp"
+            android:paddingLeft="5dp"
             android:textColor="#FFFFFF"
             android:gravity="center_vertical"
             android:background="#642D64"/>
@@ -43,55 +56,15 @@
             android:gravity="center"/>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="400dp" >
 
                <fragment
     android:id="@+id/mapView"
     android:layout_width="match_parent"
     android:name="com.google.android.gms.maps.SupportMapFragment"
-    android:layout_height="fill_parent"
+    android:layout_height="0dip"
+            android:layout_weight="1"
     />
-
-               <EditText
-                   android:gravity="center"
-                   android:id="@+id/editText1"
-                   android:layout_width="match_parent"
-                   android:layout_height="35dp"
-                   android:layout_marginTop="350dp"
-                   android:hint="Name this place!"
-                   android:textColorHint="#FFBBBBBB"
-                   android:background="#77000000"
-                   android:textColor="#FFFFFFFF"
-                   android:ems="10" >
-
-                   <requestFocus />
-               </EditText>
-            
-        </FrameLayout>
-
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="12dp"
-        android:layout_weight="1.29"
-        android:orientation="vertical"
-        android:background="#642D64"
-        android:gravity="center" >
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#E2E2E2" />
+           
 
      <LinearLayout
             android:layout_width="match_parent"
@@ -103,7 +76,8 @@
                 android:layout_width="0dip"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:src="@drawable/homepurple" />
+                android:onClick="goback"
+                android:src="@drawable/home_grey" />
 
             <TextView
                 android:layout_width="2dp"

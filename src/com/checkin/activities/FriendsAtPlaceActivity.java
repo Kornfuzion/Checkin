@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +38,9 @@ public class FriendsAtPlaceActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+	            WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.friend_main);
 		
 	    Intent intent = getIntent();

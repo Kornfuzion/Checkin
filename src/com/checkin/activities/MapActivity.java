@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.checkin.activities.GeofenceUtils.REQUEST_TYPE;
-
+import com.checkin.delegates.GetNearPlaces;
 import com.checkin.delegates.InsertPlace;
-
 import com.checkin.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -47,6 +46,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -125,14 +126,16 @@ public class MapActivity extends FragmentActivity {
 	    // Store the list of geofences to remove
 	    private List<String> mGeofenceIdsToRemove;
 	    
-	    private GoogleMap gMap;
+	    public static GoogleMap gMap;
 	    
 	    private View infoWindow;    
 
 	    @Override
 	    protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-
+	        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+	    	this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+	                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	        // Set the pattern for the latitude and longitude format
 	        String latLngPattern = getString(R.string.lat_lng_pattern);
 
@@ -216,8 +219,7 @@ public class MapActivity extends FragmentActivity {
 	 	        }
 	 	    }
 	        
-	        final LatLngBounds bounds = gMap.getProjection().getVisibleRegion().latLngBounds;
-	    
+	        
 	        
 	        gMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat, lon)));
 	    	gMap.addMarker(new MarkerOptions().position(new LatLng(lat, lon)));
@@ -225,6 +227,9 @@ public class MapActivity extends FragmentActivity {
 			    // Zoom in the Google Map
 	        gMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 	        
+	        LatLngBounds bounds = gMap.getProjection().getVisibleRegion().latLngBounds;
+		    double offset=0.1;
+	        new GetNearPlaces(this,null,null,null).execute((lat+offset)+"",(lon+offset)+"",(lat-offset)+"",(lon-offset)+"");   
 	        gMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 	        String placeName = null;
 	        
@@ -340,7 +345,7 @@ public class MapActivity extends FragmentActivity {
 			}
 	    	
 	    });
-	               
+	   
 	    }
 
 
@@ -518,6 +523,9 @@ public class MapActivity extends FragmentActivity {
             Log.e(GeofenceUtils.APPTAG, msg);
             Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
         }
+    }
+    public void goback(View v){
+    	super.onBackPressed();
     }
 }
 
