@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.checkin.activities.FriendsAtPlaceActivity;
 import com.checkin.utils.Place;
 import com.checkin.utils.SharedObjects;
-import com.example.checkin.R;
+import com.checkin.R;
 
 public class PlaceAdapter extends BaseAdapter {
 

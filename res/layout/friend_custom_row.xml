@@ -18,7 +18,7 @@
                android:layout_height="match_parent"
                android:layout_marginLeft="10dp"
 
-               android:src="@drawable/james_profile_pic" />
+               android:src="@drawable/jamesprofilepic" />
 
            <TextView
                android:id="@+id/aboutme"

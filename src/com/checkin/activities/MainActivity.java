@@ -22,11 +22,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.checkin.delegates.GetPlaces;
+import com.checkin.delegates.GetUser;
 import com.checkin.utils.SharedObjects;
 import com.checkin.utils.User;
-import com.example.checkin.R;
+import com.checkin.R;
 
 public class MainActivity extends ActionBarActivity {
 	
@@ -37,6 +39,12 @@ public class MainActivity extends ActionBarActivity {
 		ImageView rIcon = (ImageView) findViewById(R.id.refresh);
 		GetPlaces getPlaces = new GetPlaces(this, lv, p, rIcon);
 		getPlaces.execute(SharedObjects.phoneNumber);
+		
+		ImageView imgView = (ImageView) findViewById(R.id.profilepic);
+		TextView usernameView = (TextView) findViewById(R.id.username);
+		TextView aboutMeView = (TextView) findViewById(R.id.aboutme);
+		GetUser getUser = new GetUser(this, imgView, usernameView, null, aboutMeView);
+		getUser.execute(SharedObjects.phoneNumber);
 	}
 	
 	@SuppressLint("NewApi")
@@ -135,11 +143,13 @@ public class MainActivity extends ActionBarActivity {
 							phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
 							
 							friend.setPhoneNumber(parsePhoneNumber(phoneNumber));
-							Log.d(SharedObjects.TAG, phoneNumber);
+							Log.d(SharedObjects.TAG, friend.getPhoneNumber());
 						}
 						phoneCursor.close();
 					}
-					friends.add(friend);
+					if (friend.getPhoneNumber() != null && !friend.getPhoneNumber().isEmpty()){
+						friends.add(friend);
+					}
 				}
 			}
 			SharedObjects.friends = friends;

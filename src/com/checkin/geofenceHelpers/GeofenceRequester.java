@@ -1,6 +1,6 @@
 package com.checkin.geofenceHelpers;
 
-import com.example.checkin.R;
+import com.checkin.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;

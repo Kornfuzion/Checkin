@@ -13,6 +13,7 @@ public class Place {
 	public static final String LONG = "long";
 	public static final String LAT = "lat";
 	public static final String RADIUS = "radius";
+	public static final String ICONNUMBER = "icon_number";
 	public static final String NUMFRIENDS = "num_friends";
 	
 	private String name;
@@ -21,10 +22,11 @@ public class Place {
 	private LatLng location;
 	private int place_id;
 	private double radius;
+	private int iconNumber;
 	private Vector<User> currentUsers;
 	private Integer numFriends = Integer.valueOf(0);
 	
-	private static String[] tableSchemaMapOrder = {NAME,LONG,LAT,RADIUS,NUMFRIENDS,PLACE_ID};
+	private static String[] tableSchemaMapOrder = {NAME,LONG,LAT,RADIUS,NUMFRIENDS,ICONNUMBER, PLACE_ID};
 	
 	public static Place createPlace(String[] columns){
 		Place tmp = new Place();
@@ -46,6 +48,9 @@ public class Place {
 				}
 				else if  (tableSchemaMapOrder[i].equals(NUMFRIENDS)){
 					tmp.setNumFriends(Integer.valueOf(columns[i]));
+				}
+				else if  (tableSchemaMapOrder[i].equals(ICONNUMBER)){
+					tmp.setIconNumber(Integer.valueOf(columns[i]));
 				}
 				else{
 					//not supported table column
@@ -118,6 +123,14 @@ public class Place {
 
 	public void setNumFriends(Integer numFriends) {
 		this.numFriends = numFriends;
+	}
+
+	public int getIconNumber() {
+		return iconNumber;
+	}
+
+	public void setIconNumber(int iconNumber) {
+		this.iconNumber = iconNumber;
 	}
 
 
