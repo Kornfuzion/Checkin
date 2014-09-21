@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.checkin.activities.GeofenceUtils.REQUEST_TYPE;
+import com.checkin.delegates.InsertPlace;
 import com.example.checkin.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -52,16 +53,16 @@ public class MapActivity extends FragmentActivity {
 	            GEOFENCE_EXPIRATION_IN_HOURS * DateUtils.HOUR_IN_MILLIS;
 
 	    // Store the current request
-	    private REQUEST_TYPE mRequestType;
+	    public static REQUEST_TYPE mRequestType;
 
 	    // Persistent storage for geofences
 	    private SimpleGeofenceStore mPrefs;
 
 	    // Store a list of geofences to add
-	    List<Geofence> mCurrentGeofences;
+	    public static List<Geofence> mCurrentGeofences;
 
 	    // Add geofences handler
-	    private GeofenceRequester mGeofenceRequester;
+	    public static GeofenceRequester mGeofenceRequester;
 	    // Remove geofences handler
 	    private GeofenceRemover mGeofenceRemover;
 	    // Handle to geofence 1 latitude in the UI
@@ -85,7 +86,7 @@ public class MapActivity extends FragmentActivity {
 	    /*
 	     * Internal lightweight geofence objects for geofence 1 and 2
 	     */
-	    private SimpleGeofence mUIGeofence1;
+	    public static SimpleGeofence mUIGeofence1;
 	    private SimpleGeofence mUIGeofence2;
 
 	    // decimal formats for latitude, longitude, and radius
@@ -161,7 +162,7 @@ public class MapActivity extends FragmentActivity {
 	        mGeofenceRemover = new GeofenceRemover(this);
 
 	        // Attach to the main UI
-	        setContentView(R.layout.map_main);
+	        setContentView(R.layout.pin_map_main);
 	        
 	        FragmentManager myFragmentManager = getSupportFragmentManager();
 	        SupportMapFragment mySupportMapFragment 
@@ -205,40 +206,65 @@ public class MapActivity extends FragmentActivity {
 	        gMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 	        
 	        gMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-			
+	        String placeName = null;
+	        
 			@Override
-			public void onMapClick(LatLng arg0) {
+			public void onMapClick(final LatLng arg0) {
 				
-				gMap.addMarker(new MarkerOptions().position(arg0).title("Place name").snippet("Tap to edit"));
 				
-				CircleOptions circleOptions = new CircleOptions()
-				.center(arg0).radius(30)
-				.fillColor(0x5500ff00)	//55 represents transparency , 00ff00 specifies the fill colour
-				.strokeWidth(2);
-				gMap.addCircle(circleOptions);
+				LayoutInflater li = LayoutInflater.from(MapActivity.this);
+				View promptsView = li.inflate(R.layout.prompts, null);
 				
-				mRequestType = GeofenceUtils.REQUEST_TYPE.ADD;
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						MapActivity.this);
+ 
+				// set prompts.xml to alertdialog builder
+				alertDialogBuilder.setView(promptsView);
+ 				
+				final EditText userInput = (EditText) promptsView
+						.findViewById(R.id.editTextDialogUserInput);
+				
+				// set dialog message
+				alertDialogBuilder
+					.setCancelable(false)
+					.setPositiveButton("OK",
+					  new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog,int id) {
+						// get user input and set it to result
+						// edit text
+					    if(userInput.getText().toString().isEmpty()) {
+					    	placeName = "Place Name";
+					    }else {
+					    	placeName = (userInput.getText().toString());
+					    }
+					    gMap.addMarker(new MarkerOptions().position(arg0).title(placeName).snippet("Tap to edit"));
+					    CircleOptions circleOptions = new CircleOptions()
+						.center(arg0).radius(30)
+						.fillColor(0x5500ff00)	//55 represents transparency , 00ff00 specifies the fill colour
+						.strokeWidth(2);
+						gMap.addCircle(circleOptions);
+						new InsertPlace(MapActivity.this,1).execute(placeName,arg0.longitude+"",arg0.latitude+"");
+					    }
+					  })
+					.setNegativeButton("Cancel",
+					  new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog,int id) {
+						dialog.cancel();
+					    }
+					  });
+ 
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+ 
+				// show it
+				alertDialog.show();
+				
+								
+				
+				
+				
 		        
-		        mUIGeofence1 = new SimpleGeofence(
-		                "1",
-		                // Get latitude, longitude, and radius from the UI
-		                 arg0.latitude,
-		                 arg0.longitude,
-		                50,
-		                // Set the expiration time
-		                GEOFENCE_EXPIRATION_IN_MILLISECONDS,
-		                // Only detect entry transitions
-		                Geofence.GEOFENCE_TRANSITION_ENTER |Geofence.GEOFENCE_TRANSITION_EXIT);
 		        
-		        mCurrentGeofences.add(mUIGeofence1.toGeofence());
-		        
-		        try {
-		            // Try to add geofences
-		            mGeofenceRequester.addGeofences(mCurrentGeofences);
-		        } catch (UnsupportedOperationException e) {
-		            // Notify user that previous request hasn't finished.
-		           
-		        }
 				
 			}
 		});
